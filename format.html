@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model='value' id="input">
+        <input type="text" v-model='two' id="input2">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Date.prototype.Format = function (fmt) { //author: meizz 
+            var o = {
+                "M+": this.getMonth() + 1, //月份 
+                "d+": this.getDate(), //日 
+                "h+": this.getHours(), //小时 
+                "m+": this.getMinutes(), //分 
+                "s+": this.getSeconds(), //秒 
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                "S": this.getMilliseconds() //毫秒 
+            };
+
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        let arr = []
+        for (var i = 0; i < 2; i++) {
+            if (i == 0) arr.push(new Date('2018/06/03'));
+            if (i == 1) arr.push(new Date('2018-06-04'));
+        }
+        let str = '';
+        for (var i = 0; i < arr.length; i++) {
+            str += ' - ' + arr[i].Format('yyyy-MM-dd')
+        }
+        console.log(str.substr(3));
+        let arr2=[]
+        for (var i = 0; i < arr.length; i++) {
+            arr2.push(arr[i].Format('yyyy-MM-dd'))
+        }
+        </script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                value:str.substr(3),
+                two:arr2
+            }
+        });
+    </script>
+</body>
+
+</html>
